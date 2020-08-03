@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Senha import main
+import main
 
 
 class Ui_painel(object):
