@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import main
+from PassGen.files import main
 
 
 class Ui_painel(object):
