@@ -10,20 +10,24 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PassGen.files import main
+import pyperclip
 
 
+# Inicio do gerado automaticamente
 class Ui_painel(object):
     def setupUi(self, painel):
         painel.setObjectName("painel")
         painel.resize(704, 446)
         painel.setMaximumSize(QtCore.QSize(704, 446))
+        painel.setMinimumSize(QtCore.QSize(704, 446))
         self.radioButton = QtWidgets.QRadioButton(painel)
-        self.radioButton.setGeometry(QtCore.QRect(30, 70, 141, 16))
+        self.radioButton.setGeometry(QtCore.QRect(30, 70, 200, 16))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.radioButton.setFont(font)
+        self.radioButton.setChecked(True)
         self.radioButton.setObjectName("radioButton")
         self.botton1 = QtWidgets.QPushButton(painel)
         self.botton1.setGeometry(QtCore.QRect(560, 370, 121, 51))
@@ -36,6 +40,8 @@ class Ui_painel(object):
         self.textbox = QtWidgets.QLineEdit(painel)
         self.textbox.setGeometry(QtCore.QRect(0, 310, 701, 32))
         self.textbox.setObjectName("textbox")
+        self.textbox.setFont(font)
+        font.setFamily("Arial")
         self.horizontalScrollBar = QtWidgets.QScrollBar(painel)
         self.horizontalScrollBar.setGeometry(QtCore.QRect(310, 70, 311, 16))
         self.horizontalScrollBar.setMinimum(6)
@@ -79,19 +85,26 @@ class Ui_painel(object):
     def retranslateUi(self, painel):
         _translate = QtCore.QCoreApplication.translate
         painel.setWindowTitle(_translate("painel", "Dialog"))
-        self.radioButton.setText(_translate("painel", "Somente letras"))
-        self.botton1.setText(_translate("painel", "Gerar"))
+        self.radioButton.setText(_translate("painel", "Incluir pontuação"))
+        self.botton1.setText(_translate("painel", "Copiar"))
+        self.textbox.setText(main.gerar(int(8), True))
         self.label.setText(_translate("painel", "Tamanho da senha"))
         self.label_2.setText(_translate("painel", "6"))
         self.label_3.setText(_translate("painel", "16"))
+        # Fim do gerado automaticamente
 
-        self.botton1.clicked.connect(self.start)
+        # Conectores dos itens aos metodos desta classe
+        self.botton1.clicked.connect(self.copy)
         self.horizontalScrollBar.valueChanged.connect(self.start)
+        self.radioButton.clicked.connect(self.start)
+
+    # Chama metodos de outras classes
+    def copy(self):
+        pyperclip.copy(self.textbox.text())
 
     def start(self):
         self.label_3.setText(str(self.horizontalScrollBar.value()))
-        if self.radioButton.isChecked():
-            self.textbox.setText(main.gerar(int(self.horizontalScrollBar.value())))
+        self.textbox.setText(main.gerar(int(self.horizontalScrollBar.value()), self.radioButton.isChecked()))
 
 
 if __name__ == "__main__":
