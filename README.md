@@ -1,7 +1,7 @@
 # PassGen
 Password generator
 
-To run this file edit the janela_1 from this:
+To run this file edit the line 12 of janela_1 from this:
 
 from PassGen.files import main
 
